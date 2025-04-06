@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html class="zyyo.net">
+
+<head>
+  <title>3D查看器组件｜辰繖の博客</title>
+  <link rel="stylesheet" href="/Mypage/static/css/style.css" />
+  <link rel="icon" href="/Mypage/static/img/i6.png" />
+  <link rel="stylesheet" href="/Mypage/static/css/rootblur.css" />
+  <link rel="stylesheet" href="/Mypage/static/css/blog.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+    ai-chat {
+      display: block;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      font-family: 'Inter', system-ui, -apple-system;
+    }
+
+    .chat-container {
+      height: 70vh;
+      padding: 1.5rem;
+      overflow-y: auto;
+      background: #f8f9fc;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .message {
+      display: flex;
+      max-width: 85%;
+      margin: 8px 0;
+      animation: messageAppear 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+
+    .message-user {
+      align-self: flex-end;
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      line-height: 1.6;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      max-width: fit-content;
+    }
+
+    .user-bubble {
+      background: #3b82f6;
+      color: white;
+      border-radius: 18px 4px 4px 18px;
+    }
+
+    .bot-bubble {
+      background: white;
+      color: #1f2937;
+      border-radius: 4px 18px 18px 4px;
+    }
+
+    .typing-indicator {
+      display: inline-flex;
+      gap: 8px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      align-items: center;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d1d5db;
+      animation: dotPulse 1.2s infinite ease-in-out;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 1.5rem;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      border-radius: 0 0 12px 12px;
+    }
+
+    #message-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin-right: 1rem;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    #message-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    #send-btn {
+      padding: 0.75rem 1.5rem;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #send-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .markdown-content {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .markdown-content h1 {
+      font-size: 1.5em;
+      margin: 0.8em 0;
+      padding-bottom: 0.3em;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .markdown-content h2 {
+      font-size: 1.3em;
+      margin: 0.7em 0;
+    }
+
+    .markdown-content h3 {
+      font-size: 1.1em;
+      margin: 0.6em 0;
+    }
+
+    .markdown-content p {
+      margin: 0.8em 0;
+      line-height: 1.7;
+    }
+
+    .markdown-content pre {
+      background: #f3f4f6;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    .markdown-content code {
+      background: #f3f4f6;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+    }
+
+    .markdown-content blockquote {
+      border-left: 4px solid #e5e7eb;
+      padding-left: 1rem;
+      margin: 1em 0;
+      color: #64748b;
+    }
+
+    @keyframes messageAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes dotPulse {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+
+      30% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    .timestamp {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: 8px;
+      bottom: -18px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 2px 8px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .bubble:hover .copy-btn {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="zyyo-filter"></div>
+  <div class="zyyo-main">
+    <div class="zyyo-right blog-detail">
+      <div class="breadcrumb">
+        <a href="../Project.html" class="breadcrumb-item">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+          </svg>
+          返回项目列表
+        </a>
+      </div>
+      <article class="article-container">
+        <header class="article-header">
+          <h1 class="article-title gradientText">
+            ai-chatbox标签的实现
+          </h1>
+        </header>
+        <div class="article-content">
+          <nav class="toc">
+            <h3>目录导航</h3>
+            <ul>
+              <li><a href="#design-concept">项目背景</a></li>
+              <li><a href="#tag-attributes">设计理念</a></li>
+              <li><a href="#tag-attributes">核心属性</a></li>
+              <li><a href="#code-demo">项目展示</a></li>
+            </ul>
+          </nav>
+          <section id="design-concept">
+            <h2>一、项目背景</h2>
+            <p>这是一个基于Web Components技术构建的AI对话界面组件。通过与Moonshot
+              API集成，组件可快速部署个性化AI助手，支持动态对话管理、多主题适配和实时流式响应。核心目标是为开发者提供开箱即用的智能对话解决方案=</p>
+              <p>开发背景</p>
+            <div class="pain-points">
+              <div class="point-card">
+                <h3>📦 AI赋能</h3>
+                <p>ai接入的成本变得原来越低</p>
+              </div>
+              <div class="point-card">
+                <h3>🖱️ 缺少轻量化的ai应用组件</h3>
+                <p>落地需要大量代码</p>
+              </div>
+              <div class="point-card">
+                <h3>🌐 缺少定制化的ai助手</h3>
+                <p>缺少定制化预训练的实用助手</p>
+              </div>
+            </div>
+            <p>应用场景</p>
+            <div class="pain-points">
+              <div class="point-card">
+                <h3>📦 在线教育行业</h3>
+                <p>使用特殊训练的api接口实现教育赋能</p>
+              </div>
+              <div class="point-card">
+                <h3>🖱️ 游戏角色扮演</h3>
+                <p>通过提示词实现逼真的游戏角色交互</p>
+              </div>
+              <div class="point-card">
+                <h3>🌐 网页通用助手</h3>
+                <p>开箱即用，交互多元化</p>
+              </div>
+            </div>
+            <section id="design-concept">
+              <h2>二、设计理念</h2>
+              <div class="pain-points">
+                <div class="point-card">
+                  <h3>沉浸式体验</h3>
+                  <p>动态消息动画（入场渐显+浮动效果）<br>
+                    实时打字机效果响应<br>
+                    智能滚动保持对话焦点</p>
+                </div>
+                <div class="point-card">
+                  <h3>个性化定制</h3>
+                  <p>预设角色人格（通过system prompt实现）<br>
+                    主题色一键切换（明暗模式）<br>
+                    多样化交互反馈（复制按钮、错误提示）</p>
+                </div>
+                <div class="point-card">
+                  <h3>资源效能优化</h3>
+                  <p>对话历史LRU缓存策略<br>
+                    API密钥生命周期管理<br>
+                    本地存储自动清理机制</p>
+                </div>
+              </div>
+              <section id="tag-attributes">
+                <h2>三、属性参数详解</h2>
+                <div class="attr-table">
+                  <div class="attr-row header">
+                    <span>属性</span>
+                    <span>类型</span>
+                    <span>默认值</span>
+                    <span>说明</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>backend-url</span>
+                    <span>String</span>
+                    <span>http://localhost:3000</span>
+                    <span>必填，后端服务地址</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>initial-prompt</span>
+                    <span>[{"role":"system","content":""}]</span>
+                    <span>[{"role":"system","content":""}]</span>
+                    <span>系统级提示设定</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>history-length</span>
+                    <span>Number</span>
+                    <span>100</span>
+                    <span>对话历史最大轮数</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>persist-chat</span>
+                    <span>Boolean</span>
+                    <span>false</span>
+                    <span>是否持久化存储对话</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>show-timestamp</span>
+                    <span>Boolean</span>
+                    <span>true</span>
+                    <span>是否显示时间戳</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>greeting</span>
+                    <span>String</span>
+                    <span>""</span>
+                    <span>初始化欢迎语</span>
+                  </div>
+                  <div class="attr-row">
+                    <span>theme</span>
+                    <span>String</span>
+                    <span>"light"</span>
+                    <span>主题模式（dark/light，默认：light）</span>
+                  </div>
+
+                </div>
+              </section>
+              <section id="code-demo">
+                <h2>四、项目展示</h2>
+                <h3>
+                  基础范例
+
+                </h3>
+                backend-url="http://localhost:3000"
+                greeting = "你好，我是一个ai智能助手"
+
+                <p>
+                  <ai-chat backend-url="http://localhost:3000" initial-prompt='[{"role":"system","content":"你是一个ai智能助手"}]'
+                    history-length="100" persist-chat="false" show-timestamp="true" greeting="你好，我是一个ai智能助手"
+                    theme="light">
+                </p>
+                <h3>
+                  主题切换
+                </h3>
+                <p>
+                  theme = "dark"
+                </p>
+                <p>
+                <ai-chat backend-url="http://localhost:3000" initial-prompt='[{"role":"system","content":"你是一个ai智能助手"}]'
+                  history-length="100" persist-chat="false" show-timestamp="true" greeting="你好，我是一个ai智能助手" theme="dark">
+                  </p>
+                  <h3>
+                    历史记录保留
+                  </h3>
+                  <p>
+                    persist-chat = "true"
+                  </p>
+                          <a href="./chatboxdisplayhistory.html">历史记录保留</a>
+                    </p>
+                    <h3>
+                      记忆轮数设定
+                    </h3>
+                    <p>
+                      history-length = "3"
+                    </p>
+                    <p>
+                      <a href="./chatboxdisplayhistory.html">记忆轮数设定</a>
+                    <p>
+                      <h3>
+                        个性化prompt
+                      </h3>
+                      <p>
+                <ai-chat backend-url="http://localhost:3000" initial-prompt='[{"role":"system","content":"你将扮演原神里的游戏角色芙宁娜，傲娇属性请拉满。"}]'
+                  history-length="100" persist-chat="false" show-timestamp="true" greeting="我是芙宁娜" theme="dark">
+                  </p>
+              </section>
+        </div>
+        <div class="article-footer">
+          <div class="article-tags">
+            <span class="tag">WebComponent</span>
+            <span class="tag">Kimi Plantform</span>
+            <span class="tag">Elements</span>
+          </div>
+        </div>
+      </article>
+
+      <section class="related-articles">
+        <h3 class="related-title">延伸阅读</h3>
+        <div class="related-grid">
+          <a href="https://blog.csdn.net/2401_87362551/article/details/146168935?spm=1001.2014.3001.5502"target="_blank"
+            class="related-item">
+            <h4>开发与测试日志</h4>
+            <p>3月4日--3月8日</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer>@ChenSan｜博学之，审问之，慎思之，明辨之，笃行之</footer>
+</body>
+<script>
+  class AIChat extends HTMLElement {
+    constructor() {
+      super();
+      this.currentKey = null;
+      this.backendUrl =
+        this.getAttribute("backend-url") || "http://localhost:3000";
+      this.messageHistory = [];
+      this.historyLength =
+        parseInt(this.getAttribute("history-length")) || 100;
+      this.persistChat = this.getAttribute("persist-chat") === "true";
+      this.greeting = this.getAttribute("greeting");
+      this.showTimestamp = this.getAttribute("show-timestamp") === "true";
+      this.initialized = false;
+      this.initStorageCleanup();
+      window.addEventListener("beforeunload", (e) =>
+        this.handlePageUnload(e)
+      );
+
+      this.backendUrl =
+        this.getAttribute("backend-url") || "http://localhost:3000";
+
+
+      if (this.persistChat) {
+        const saved = localStorage.getItem("ai-chat-history");
+        if (saved) {
+          this.messageHistory = JSON.parse(saved);
+        }
+      }
+
+      try {
+        const initialPrompt = JSON.parse(
+          this.getAttribute("initial-prompt")
+        );
+        this.messageHistory.push(
+          ...initialPrompt.filter((m) => m.role === "system")
+        );
+      } catch (error) {
+        console.error("初始化提示解析失败:", error);
+      }
+
+      this.attachShadow({ mode: "open" });
+      this.initComponent();
+    }
+
+    static get observedAttributes() {
+      return [
+        "backend-url",
+        "initial-prompt",
+        "history-length",
+        "persist-chat",
+        "greeting",
+        "show-timestamp",
+        "theme",
+      ];
+    }
+
+
+    attributeChangedCallback(name, oldVal, newVal) {
+      switch (name) {
+        case "initial-prompt":
+
+          break;
+        case "history-length":
+          this.historyLength = Math.max(1, parseInt(newVal) || 10);
+          break;
+        case "persist-chat":
+          if (newVal === "false" && oldVal === "true") {
+            this.cleanStorageIfNeeded();
+          }
+          this.persistChat = newVal === "true";
+          break;
+        case "greeting":
+          this.greeting = newVal;
+          break;
+        case "show-timestamp":
+          this.showTimestamp = newVal === "true";
+          break;
+        case "theme":
+          this.applyTheme();
+          break;
+      }
+    }
+
+    initComponent() {
+      this.shadowRoot.innerHTML = `
+                <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+        ai-chat {
+            display: block;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-family: 'Inter', system-ui, -apple-system;
+        }
+
+        .chat-container {
+            height: 70vh;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fc;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .message {
+            display: flex;
+            max-width: 85%;
+            margin: 8px 0;
+            animation: messageAppear 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+
+        .message-user {
+            align-self: flex-end;
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            max-width: fit-content;
+        }
+
+        .user-bubble {
+            background: #3b82f6;
+            color: white;
+            border-radius: 18px 4px 4px 18px;
+        }
+
+        .bot-bubble {
+            background: white;
+            color: #1f2937;
+            border-radius: 4px 18px 18px 4px;
+        }
+
+        .typing-indicator {
+            display: inline-flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            animation: dotPulse 1.2s infinite ease-in-out;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            border-radius: 0 0 12px 12px;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-right: 1rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        #message-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        #send-btn {
+            padding: 0.75rem 1.5rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #send-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .markdown-content {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .markdown-content h1 {
+            font-size: 1.5em;
+            margin: 0.8em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .markdown-content h2 {
+            font-size: 1.3em;
+            margin: 0.7em 0;
+        }
+
+        .markdown-content h3 {
+            font-size: 1.1em;
+            margin: 0.6em 0;
+        }
+
+        .markdown-content p {
+            margin: 0.8em 0;
+            line-height: 1.7;
+        }
+
+        .markdown-content pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .markdown-content code {
+            background: #f3f4f6;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid #e5e7eb;
+            padding-left: 1rem;
+            margin: 1em 0;
+            color: #64748b;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 8px;
+            bottom: -18px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 2px 8px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .bubble:hover .copy-btn {
+            opacity: 1;
+        }
+    </style>
+                    <div class="chat-container"></div>
+                    <div class="input-area">
+                        <input type="text" id="message-input" placeholder="输入消息...">
+                        <button id="send-btn">发送</button>
+                    </div>
+            `;
+
+      this.chatContainer = this.shadowRoot.querySelector(".chat-container");
+      console.log(this.chatContainer);
+      this.input = this.shadowRoot.querySelector("#message-input");
+      this.sendBtn = this.shadowRoot.querySelector("#send-btn");
+
+      this.sendBtn.addEventListener("click", () => this.handleSend());
+      this.input.addEventListener(
+        "keypress",
+        (e) => e.key === "Enter" && this.handleSend()
+      );
+
+
+      this.renderMessages();
+      if (!this.initialized && this.greeting) {
+        this.showGreeting();
+        this.initialized = true;
+      }
+      this.applyTheme();
+      this.initialized = true;
+    }
+
+    showGreeting() {
+      console.log("显示欢迎消息：", this.greeting);
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble bot-bubble";
+      bubble.textContent = this.greeting;
+
+      if (this.showTimestamp) {
+        const timestamp = document.createElement("div");
+        timestamp.className = "timestamp";
+        timestamp.textContent = new Date().toLocaleTimeString();
+        bubble.appendChild(timestamp);
+      }
+
+      messageDiv.appendChild(bubble);
+      this.chatContainer.appendChild(messageDiv);
+      console.log("欢迎消息已添加到DOM：", messageDiv)
+      this.scrollToBottom();
+      console.log("滚动到底部后，chatContainer的高度：", this.chatContainer.scrollHeight);
+
+    }
+
+    async handleSend() {
+      const userInput = this.input.value.trim();
+      if (!userInput) return;
+
+      this.addMessage(userInput, "user");
+      this.input.value = "";
+      this.sendBtn.disabled = true;
+
+      try {
+        const typingBubble = this.showTypingIndicator();
+        const response = await this.fetchModelResponse(userInput);
+        this.chatContainer.removeChild(typingBubble);
+        await this.streamResponse(response);
+      } catch (error) {
+        this.showError("服务暂时不可用，请稍后再试" + error);
+
+      } finally {
+        this.sendBtn.disabled = false;
+      }
+    }
+    async handlePageUnload(event) {
+      if (this.currentKey) {
+        try {
+          try {
+            await fetch(`${this.backendUrl}/api-keys/release`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ key: this.currentKey }),
+              keepalive: true, // 允许在页面卸载后继续发送
+            });
+          } catch (err) {
+            console.error("Key release failed:", err);
+          }
+        } catch (err) {
+          console.error("密钥释放失败:", err);
+        } finally {
+          this.currentKey = null;
+        }
+      }
+    }
+
+    async fetchModelResponse(prompt) {
+      try {
+
+        if (!this.currentKey) {
+          const keyResponse = await fetch(
+            `${this.backendUrl}/api-keys/allocate`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({}), // 如果不需要参数可以传空对象
+            }
+          );
+          if (!keyResponse.ok) throw new Error("Failed to allocate key");
+
+          const { key } = await keyResponse.json();
+          this.currentKey = key;
+
+        }
+
+        const apiResponse = await fetch(
+          "https://api.moonshot.cn/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.currentKey}`,
+            },
+            body: JSON.stringify({
+              model: "moonshot-v1-8k",
+              messages: this.getTrimmedHistory(),
+              temperature: 0.3,
+              max_tokens: 1024,
+            }),
+          }
+        );
+
+        if (!apiResponse.ok) {
+          throw new Error(apiResponse.statusText);
+        }
+
+        return apiResponse.json();
+      } catch (error) {
+        console.error("API call failed:", error);
+        throw error;
+      }
+
+    }
+
+    initStorageCleanup() {
+      window.addEventListener("beforeunload", () =>
+        this.cleanStorageIfNeeded()
+      );
+      this._disconnectObserver = new MutationObserver(() => {
+        if (!document.contains(this)) {
+          this.cleanStorageIfNeeded();
+        }
+      });
+      this._disconnectObserver.observe(document, {
+        childList: true,
+        subtree: true,
+      });
+    }
+    cleanStorageIfNeeded() {
+      if (!this.persistChat) {
+        const keysToClean = ["ai-chat-history", "kimi-chat-state"];
+        keysToClean.forEach((key) => {
+          if (localStorage.getItem(key)) {
+            console.log(`清除 localStorage: ${key}`);
+            localStorage.removeItem(key);
+          }
+        });
+
+        sessionStorage.removeItem("current-api-key");
+      }
+    }
+    getTrimmedHistory() {
+      const maxMessages = this.historyLength * 2;
+      const systemMessages = this.messageHistory.filter(
+        (m) => m.role === "system"
+      );
+      const recentHistory = this.messageHistory
+        .filter((m) => m.role !== "system")
+        .slice(-maxMessages);
+      return [...systemMessages, ...recentHistory];
+    }
+    addMessage(content, role) {
+      const newMessage = {
+        role,
+        content,
+        timestamp: new Date().toISOString(),
+      };
+      this.messageHistory.push(newMessage);
+      this.saveHistory();
+      if (role === "assistant") return;
+      this.renderMessage(content, role);
+    }
+
+    renderMessages() {
+      this.chatContainer.innerHTML = "";
+      const displayMessages = this.messageHistory.filter(
+        (m) => m.role !== "system"
+      );
+      displayMessages.forEach((msg) =>
+        this.renderMessage(msg.content, msg.role)
+      );
+    }
+
+    renderMessage(content, role) {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `message ${role === "user" ? "message-user" : ""
+        }`;
+
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${role === "user" ? "user-bubble" : "bot-bubble"
+        }`;
+
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "markdown-content";
+      contentDiv.innerHTML = this.parseMarkdown(content);
+
+      const actionBar = document.createElement("div");
+      actionBar.style.display = "flex";
+      actionBar.style.justifyContent = "space-between";
+      actionBar.style.alignItems = "center";
+      actionBar.style.marginTop = "8px";
+
+      if (role === "bot") {
+        const copyBtn = document.createElement("div");
+        copyBtn.className = "copy-btn";
+        copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+  <path d="M8 4v12h12V4H8zM6 2h16v16H6zM4 6v14h14"/>
+</svg>`;
+        copyBtn.onclick = () => this.copyToClipboard(content);
+        actionBar.appendChild(copyBtn);
+      }
+
+      if (this.showTimestamp) {
+        const timestamp = document.createElement("div");
+        timestamp.className = "timestamp";
+        timestamp.textContent = new Date().toLocaleTimeString("zh-CN", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        actionBar.appendChild(timestamp);
+      }
+      bubble.appendChild(contentDiv);
+      bubble.appendChild(actionBar);
+      messageDiv.appendChild(bubble);
+
+      this.chatContainer.appendChild(messageDiv);
+      this.scrollToBottom();
+    }
+
+    async streamResponse(responseData) {
+      return new Promise((resolve) => {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "message";
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble bot-bubble";
+
+        // 内容容器
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "markdown-content";
+
+        // 操作栏
+        const actionBar = document.createElement("div");
+        actionBar.style.display = "flex";
+        actionBar.style.justifyContent = "space-between";
+        actionBar.style.alignItems = "center";
+        actionBar.style.marginTop = "8px";
+
+        // 时间戳
+        const timestamp = document.createElement("div");
+        timestamp.className = "timestamp";
+        const copyBtn = document.createElement("div");
+        copyBtn.className = "copy-btn";
+        copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+  <path d="M8 4v12h12V4H8zM6 2h16v16H6zM4 6v14h14"/>
+</svg>`;
+
+        actionBar.appendChild(timestamp);
+        actionBar.appendChild(copyBtn);
+        bubble.appendChild(contentDiv);
+        bubble.appendChild(actionBar);
+        messageDiv.appendChild(bubble);
+        this.chatContainer.appendChild(messageDiv);
+        let text = "";
+
+        text = responseData.choices[0].message.content;
+
+        let index = 0;
+        const renderChunk = () => {
+          if (index < text.length) {
+            contentDiv.innerHTML = this.parseMarkdown(
+              text.slice(0, ++index)
+            );
+            timestamp.textContent = new Date().toLocaleTimeString("zh-CN", {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            setTimeout(renderChunk, 30);
+            this.scrollToBottom();
+          } else {
+            this.messageHistory.push({
+              role: "assistant",
+              content: text,
+              timestamp: new Date().toISOString(),
+            });
+            this.saveHistory();
+            copyBtn.onclick = () => this.copyToClipboard(text);
+            resolve();
+          }
+        };
+
+        renderChunk();
+      });
+    }
+
+    parseMarkdown(text) {
+      return text
+        .replace(/^### (.*)/gm, "<h3>$1</h3>")
+        .replace(/^## (.*)/gm, "<h2>$1</h2>")
+        .replace(/^# (.*)/gm, "<h1>$1</h1>")
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*(.*?)\*/g, "<em>$1</em>")
+        .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+        .replace(/`(.*?)`/g, "<code>$1</code>")
+        .replace(/^> (.*)/gm, "<blockquote>$1</blockquote>")
+        .replace(/\n/g, "<br>");
+    }
+
+    showTypingIndicator() {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message";
+
+      const bubble = document.createElement("div");
+      bubble.className = "typing-indicator";
+      bubble.innerHTML = `
+                <div class="typing-dot" style="animation-delay: 0s"></div>
+                <div class="typing-dot" style="animation-delay: 0.2s"></div>
+                <div class="typing-dot" style="animation-delay: 0.4s"></div>
+            `;
+
+      messageDiv.appendChild(bubble);
+      this.chatContainer.appendChild(messageDiv);
+      this.scrollToBottom();
+      return messageDiv;
+    }
+
+    showError(message) {
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "message";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble bot-bubble";
+      bubble.textContent = message;
+
+      errorDiv.appendChild(bubble);
+      this.chatContainer.appendChild(errorDiv);
+      this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+      requestAnimationFrame(() => {
+        this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+      });
+    }
+
+    saveHistory() {
+      if (this.persistChat) {
+        localStorage.setItem(
+          "ai-chat-history",
+          JSON.stringify(this.messageHistory)
+        );
+      } else {
+        localStorage.removeItem("ai-chat-history");
+      }
+    }
+
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.showToast("已复制到剪贴板");
+      });
+    }
+
+    showToast(message) {
+      const toast = document.createElement("div");
+      toast.style.position = "fixed";
+      toast.style.bottom = "20px";
+      toast.style.left = "50%";
+      toast.style.transform = "translateX(-50%)";
+      toast.style.background = "rgba(0,0,0,0.8)";
+      toast.style.color = "white";
+      toast.style.padding = "8px 16px";
+      toast.style.borderRadius = "8px";
+      toast.style.zIndex = "1000";
+      toast.textContent = message;
+      this.shadowRoot.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+    }
+
+    applyTheme() {
+      const theme = this.getAttribute("theme") || "light";
+      const container = this.shadowRoot.querySelector(".chat-container");
+      container.style.background = theme === "dark" ? "#2d3748" : "#f8f9fc";
+    }
+    disconnectedCallback() {
+      this.releaseKeyOnUnload();
+    }
+
+    async releaseKeyOnUnload() {
+      if (this.currentKey) {
+        try {
+          await fetch(`${this.backendUrl}/release`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: this.currentKey }),
+            keepalive: true,
+          });
+          console.log(`组件卸载时释放密钥: ${this.currentKey}`);
+        } catch (err) {
+          console.error("组件卸载释放失败:", err);
+        }
+        this.currentKey = null;
+      }
+    }
+    disconnectedCallback() {
+
+      this.cleanStorageIfNeeded();
+      this.releaseKeyOnUnload();
+    }
+  }
+  customElements.define("ai-chat", AIChat);
+</script>
+
+
+</html>

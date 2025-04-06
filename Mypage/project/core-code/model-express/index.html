@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebGPU 3D渲染引擎</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <canvas id="webgpu-canvas"></canvas>
+    <!-- 完整引入gl-matrix -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/3.4.2/gl-matrix-min.js"></script>
+    <script>
+        // 显式暴露gl-matrix到全局
+        const mat4 = glMatrix.mat4;
+        const vec3 = glMatrix.vec3;
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

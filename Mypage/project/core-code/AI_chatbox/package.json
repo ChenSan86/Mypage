@@ -1,0 +1,19 @@
+{
+  "name": "ai_chatbox",
+  "version": "1.0.0",
+  "main": "api_manager_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ioredis": "^5.3.2",
+    "node-cron": "^3.0.2",
+    "winston": "^3.11.0"
+  }
+}

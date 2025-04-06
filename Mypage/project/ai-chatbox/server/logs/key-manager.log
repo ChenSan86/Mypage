@@ -1,0 +1,176 @@
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-11 21:28:56"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-11 21:28:56"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-11 21:28:56"}
+{"level":"info","message":"🛑 正在关闭服务...","timestamp":"2025-03-11 21:34:49"}
+{"level":"info","message":"✅ 服务已正常关闭","timestamp":"2025-03-11 21:34:49"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-11 21:35:41"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-11 21:35:41"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-11 21:35:41"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:35:46"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:35:46"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:35:46"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:37:04"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:46:21"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:46:21"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:46:21"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:47:19"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:47:19"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:47:19"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:47:27"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:47:27"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:47:27"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:48:41"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:48:41"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:48:41"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:48:49"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:48:49"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:48:49"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:48:56"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:49:00"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:49:00"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:49:00"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:49:40"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:49:45"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:49:45"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:49:45"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:50:51"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:50:57"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:50:57"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:50:57"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:52:28"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:52:59"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:52:59"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:52:59"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:53:14"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:54:49"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:54:49"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:54:49"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:55:01"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:55:01"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:55:01"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:55:52"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:55:52"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:58:18"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:58:18"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:58:18"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:58:24"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 21:59:22"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 21:59:22"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 21:59:22"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 21:59:55"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-11 22:00:00"}
+{"level":"info","message":"🛑 正在关闭服务...","timestamp":"2025-03-11 22:10:54"}
+{"level":"info","message":"✅ 服务已正常关闭","timestamp":"2025-03-11 22:10:54"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-11 22:39:34"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-11 22:39:34"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-11 22:39:34"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 22:40:09"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 22:40:09"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 22:40:09"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 22:43:23"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-11 22:43:48"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-11 22:43:48"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-11 22:43:48"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-11 22:50:19"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-12 21:48:43"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-12 21:48:43"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-12 21:48:43"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-12 22:00:00"}
+{"error":"ERR wrong number of arguments for 'hincrby' command","level":"error","message":"Redis连接错误","timestamp":"2025-03-12 22:00:00"}
+{"level":"info","message":"✅ 已回收密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-12 22:00:00"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-12 22:00:00"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-13 10:08:29"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-13 10:08:29"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-13 10:08:29"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 10:12:19"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 10:12:19"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 10:12:20"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 10:12:57"}
+{"level":"info","message":"🛑 正在关闭服务...","timestamp":"2025-03-13 10:54:32"}
+{"level":"info","message":"✅ 服务已正常关闭","timestamp":"2025-03-13 10:54:32"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-13 11:11:40"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-13 11:11:40"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-13 11:11:40"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:12:01"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:12:01"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:12:01"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:12:11"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:13:07"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:13:07"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:13:07"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:13:54"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:14:55"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:14:55"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:14:55"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:16:37"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:16:46"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:16:46"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:16:46"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:16:50"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:17:12"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:17:12"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:17:12"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:17:57"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:20:42"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:20:42"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:20:42"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:20:58"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:21:01"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:21:01"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:21:01"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:21:14"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:21:18"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:21:18"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:21:18"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:21:29"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:21:36"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:21:36"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:21:36"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:21:39"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 11:21:50"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 11:21:50"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 11:21:50"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 11:21:52"}
+{"level":"info","message":"🔍 检查密钥池...","timestamp":"2025-03-13 14:16:29"}
+{"level":"info","message":"✅ Redis 连接成功","timestamp":"2025-03-13 14:16:29"}
+{"level":"info","message":"🚀 服务已启动: http://localhost:3000","timestamp":"2025-03-13 14:16:29"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 14:18:15"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 14:18:15"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 14:18:15"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 14:18:20"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 14:18:27"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 14:18:27"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 14:18:27"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 14:18:32"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 14:19:05"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 14:19:05"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 14:19:05"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 14:22:30"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-13 15:00:00"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 15:30:00"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 15:30:00"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 15:30:00"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 15:31:32"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 15:35:03"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 15:35:03"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 15:35:03"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 15:35:38"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-13 16:00:00"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 16:14:09"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 16:14:09"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 16:14:09"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 16:20:54"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-13 17:00:00"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 17:49:26"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 17:49:26"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 17:49:26"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 17:49:37"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 17:49:42"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 17:49:42"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 17:49:42"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 17:49:45"}
+{"ip":"::1","level":"info","message":"POST /api-keys/allocate","timestamp":"2025-03-13 17:49:59"}
+{"level":"info","message":"🔑 收到密钥分配请求","timestamp":"2025-03-13 17:49:59"}
+{"level":"info","message":"✅ 已分配密钥: sk-DRo2524SJhYokrQnCZmqeUNgC8FTAZynuyaDQFlXuOcDgmg4","timestamp":"2025-03-13 17:49:59"}
+{"ip":"::1","level":"info","message":"POST /api-keys/release","timestamp":"2025-03-13 17:56:11"}
+{"level":"info","message":"⏳ 执行自动回收任务","timestamp":"2025-03-13 18:00:00"}

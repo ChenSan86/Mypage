@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html class="zyyo.net">
+  <head>
+    <title>3D查看器组件｜辰繖の博客</title>
+    <link rel="stylesheet" href="/Mypage/static/css/style.css" />
+    <link rel="icon" href="/Mypage/static/img/i6.png" />
+    <link rel="stylesheet" href="/Mypage/static/css/rootblur.css" />
+    <link rel="stylesheet" href="/Mypage/static/css/blog.css" />
+    <style>
+        three-container {
+            display: block;
+            position: relative;
+            border: 1px solid var(--surface-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+
+        .controls-tip {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="zyyo-filter"></div>
+    <div class="zyyo-main">
+      <div class="zyyo-right blog-detail">
+        <div class="breadcrumb">
+          <a href="../Project.html" class="breadcrumb-item">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path
+                d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
+              />
+            </svg>
+            返回项目列表
+          </a>
+        </div>
+        <article class="article-container">
+          <header class="article-header">
+            <h1 class="article-title gradientText">
+              three-container 3D查看器组件
+            </h1>
+          </header>
+
+          <div class="article-content">
+            <nav class="toc">
+              <h3>目录导航</h3>
+              <ul>
+                <li><a href="#design-concept">设计理念</a></li>
+                <li><a href="#tag-attributes">标签属性解析</a></li>
+                <li><a href="#core-features">核心特性</a></li>
+                <li><a href="#code-demo">实现示例</a></li>
+                <li><a href="#tech-innovations">技术创新</a></li>
+              </ul>
+            </nav>
+
+            <section id="design-concept">
+              <h2>一、设计理念：3D普及化</h2>
+              <div class="point-card">
+                <div class="stat-card">
+                  <div class="stat-value">83%</div>
+                  <div class="stat-label">WebGL应用增长率</div>
+                </div>
+                <div class="point-card">
+                  <div class="stat-value">2d to 3d技术高速发展</div>
+                  <div class="stat-label">gaussian splatting,nerf等技术降低了3d模型构造的门槛</div>
+                </div>
+                <div class="point-card">
+                  <div class="stat-value">2.7倍</div>
+                  <div class="stat-label">3D内容转化率提升</div>
+                </div>
+                <div class="point-card">
+                  <div class="stat-value">但是！</div>
+                  <div class="stat-label">目前缺少一个像image,video的标签盛放3d模型</div>
+                </div>
+              </div>
+              <p>传统Three.js开发存在三大痛点：</p>
+              <div class="pain-points">
+                <div class="point-card">
+                  <h3>📦 代码复杂</h3>
+                  <p>初始化代码重复率高达62%</p>
+                </div>
+                <div class="point-card">
+                  <h3>🖱️ 交互性低</h3>
+                  <p>交互逻辑需要手动实现</p>
+                </div>
+                <div class="point-card">
+                  <h3>🌐 体量过大</h3>
+                  <p>缺少轻量化、范用化的3d模型表征标签</p>
+                </div>
+              </div>
+
+              <p>本组件通过Web Components实现声明式3D展示：</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="800"
+                height="600"
+                alt="宝箱模型"
+                auto-display="true"
+                auto-display-speed="0.005"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+              ></three-container>
+
+              <div>
+                🎮 操作控制：<br />
+                • 鼠标拖拽：旋转模型<br />
+                • 滚轮：缩放视图<br />
+                • WASD/方向键：移动视角<br />
+                • Q/E：升降高度<br />
+                自动旋转：开启/关闭（用户操作时自动暂停）<br />
+                光源位置：可自定义多个光源<br />
+                相机位置：可指定绝对坐标（如“2,3,10”）或距离（如“10”）
+              </div>
+            </section>
+
+            <section id="tag-attributes">
+              <h2>二、属性参数详解</h2>
+              <div class="attr-table">
+                <div class="attr-row header">
+                  <span>属性</span>
+                  <span>类型</span>
+                  <span>默认值</span>
+                  <span>说明</span>
+                </div>
+                <div class="attr-row">
+                  <span>src</span>
+                  <span>String</span>
+                  <span>-</span>
+                  <span>模型文件路径（支持.obj格式）</span>
+                </div>
+                <div class="attr-row">
+                  <span>mtl</span>
+                  <span>String</span>
+                  <span>同目录同名mtl</span>
+                  <span>材质文件路径</span>
+                </div>
+                <div class="attr-row">
+                  <span>width</span>
+                  <span>Number</span>
+                  <span>800</span>
+                  <span>画布宽度（像素）</span>
+                </div>
+                <div class="attr-row">
+                  <span>height</span>
+                  <span>Number</span>
+                  <span>600</span>
+                  <span>画布高度（像素）</span>
+                </div>
+                <div class="attr-row">
+                  <span>auto-display</span>
+                  <span>Boolean</span>
+                  <span>false</span>
+                  <span>启用自动旋转展示</span>
+                </div>
+                <div class="attr-row">
+                  <span>auto-display-speed</span>
+                  <span>Float</span>
+                  <span>0.005</span>
+                  <span>自动旋转速度（弧度/帧）</span>
+                </div>
+                <div class="attr-row">
+                  <span>light-position</span>
+                  <span>String</span>
+                  <span>"5,5,5"</span>
+                  <span>光源坐标（支持多个，分号分隔）</span>
+                </div>
+                <div class="attr-row">
+                  <span>camera-position</span>
+                  <span>String</span>
+                  <span>自动计算</span>
+                  <span>相机坐标（x,y,z或单数字距离）</span>
+                </div>
+                <div class="attr-row">
+                  <span>guesture-control</span>
+                  <span>Boolean</span>
+                  <span>false</span>
+                  <span>集成手势控制函数实现交互新体验</span>
+                </div>
+                
+              </div>
+              <p>静止</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="800"
+                height="600"
+                alt="宝箱模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+              ></three-container>
+              <p>调节容器大小</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="400"
+                height="300"
+                alt="宝箱模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+              ></three-container>
+              <p>调节转动速度</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="400"
+                height="300"
+                alt="宝箱模型"
+                auto-display="true"
+                auto-display-speed="0.05"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+              ></three-container>
+              <p>自定义光源</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="800"
+                height="600"
+                alt="宝箱模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2;9,0,0;0,4,0;0,0,10;7,4,0;,1,6,2;7,3,9"
+                camera-position="10"
+              ></three-container>
+              <p>自定义相机位置</p>
+              <three-container
+                src="./model/treasure.obj"
+                mtl="./model/treasure.mtl"
+                width="800"
+                height="600"
+                alt="宝箱模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2"
+                camera-position="7,0,0"
+              ></three-container>
+              <p>多个模型测试</p>
+              <three-container
+                src="/Mypage/small_task/model/zhaohaisen.obj"
+                mtl="/Mypage/small_task/model/zhaohaisen.mtl"
+                width="800"
+                height="600"
+                alt="宝箱模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+              ></three-container>
+            </section>
+
+            <section id="core-features">
+              <h2>三、三大核心特性</h2>
+              <div class="feature-grid">
+                <div class="feature-card">
+                  <div class="feature-icon">🔄</div>
+                  <h3>智能适配</h3>
+                  <p>自动计算模型尺寸和相机距离</p>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">🎮</div>
+                  <h3>全向交互</h3>
+                  <p>支持鼠标拖拽+键盘控制</p>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">💾</div>
+                  <h3>资源管理</h3>
+                  <p>自动清理材质和几何体</p>
+                </div>
+              </div>
+            </section>
+
+            <section id="code-demo">
+              <h2>四、实现方案解析</h2>
+              <h3>1. 组件初始化</h3>
+              <div class="code-block">
+                <pre><code class="language-javascript">
+class ThreeContainer extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.initScene();
+    this.initElements();
+    this.keyState = {};
+    this.autoRotate = false;
+  }
+  
+  initScene() {
+    // 初始化Three.js核心三要素
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+    this.renderer = new THREE.WebGLRenderer({ 
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+  }
+}</code></pre>
+                <button class="copy-button">复制</button>
+              </div>
+
+              <h3>2. 智能相机定位</h3>
+              <div class="code-block">
+                <pre><code class="language-javascript">
+adjustCamera() {
+  const box = new THREE.Box3().setFromObject(this.model);
+  const size = box.getSize(new THREE.Vector3());
+  
+  // 自动计算默认距离
+  let defaultDistance = size.length() * 2;
+  
+  // 解析用户自定义设置
+  const cameraPos = this.getAttribute('camera-position');
+  if (cameraPos) {
+    const [x, y, z] = cameraPos.split(',').map(Number);
+    if (!isNaN(x)) this.camera.position.set(x, y || x, z || x);
+  } else {
+    this.camera.position.set(0, 0, defaultDistance);
+  }
+  
+  this.camera.lookAt(this.cameraTarget);
+}</code></pre>
+                <button class="copy-button">复制</button>
+              </div>
+            </section>
+
+            <section id="tech-innovations">
+              <h2>五、技术亮点</h2>
+              <div class="innovation-grid">
+                <div class="innov-card">
+                  <h3>🎯 渐进式加载</h3>
+                  <p>模型与材质并行加载+自动降级策略</p>
+                </div>
+                <div class="innov-card">
+                  <h3>🔄 智能内存管理</h3>
+                  <p>组件卸载时自动释放GPU资源</p>
+                </div>
+                <div class="innov-card">
+                  <h3>⏱️ 节流渲染</h3>
+                  <p>非激活状态自动降帧率节省资源</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="article-footer">
+            <div class="article-tags">
+              <span class="tag">WebGL</span>
+              <span class="tag">Three.js</span>
+              <span class="tag">Web组件</span>
+            </div>
+          </div>
+        </article>
+
+        <section class="related-articles">
+          <h3 class="related-title">延伸阅读</h3>
+          <div class="related-grid">
+            <a href="https://blog.csdn.net/2401_87362551/article/details/146158267?spm=1001.2014.3001.5501" target="_blank" class="related-item">             
+              <h4>开发与测试日志</h4>
+              <p>3月4日--3月8日</p>
+            </a>
+          </div>
+        </section>
+        <section class="related-articles">
+          <h3 class="related-title">项目展示</h3>
+          <div class="related-grid">
+            <a href="\Mypage\project\core-code\guesture\test2.html" target="_blank" class="related-item">             
+              <h4>手势控制示例</h4>
+              <p>guesture驱动</p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer>@ChenSan｜博学之，审问之，慎思之，明辨之，笃行之</footer>
+  </body>
+
+  <!-- 组件依赖 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+
+  <!-- 组件实现 -->
+ <script>
+class ThreeContainer extends HTMLElement {
+    static get observedAttributes() {
+        return ['src', 'mtl', 'width', 'height', 'alt', 'auto-display', 'auto-display-speed', 'light-position', 'camera-position'];
+    }
+
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        // 提前初始化定向光数组，确保 setupLights 调用时已定义
+        this.directionalLights = [];
+        this.initElements();
+        this.initScene();
+        this.keyState = {};
+        this.cameraTarget = new THREE.Vector3(0, 0, 0);
+        // 自动旋转相关变量
+        this.autoRotate = false;
+        this.autoRotateSpeed = 0.005;
+        this.userInteracting = false;
+        this.resumeAutoRotateTimer = null;
+    }
+
+    initElements() {
+        this.loadingElement = document.createElement('div');
+        this.loadingElement.className = 'loading-overlay';
+        this.loadingElement.innerHTML = `
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+            </svg>
+            <div style="margin-top:12px;">加载中...</div>
+        `;
+        this.shadowRoot.appendChild(this.loadingElement);
+    }
+
+    initScene() {
+        this.scene = new THREE.Scene();
+        this.renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            powerPreference: "high-performance"
+        });
+        this.renderer.setClearColor(0x000000);
+        
+        // 初始化相机
+        this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        // 初始位置将在 adjustCamera 中设置
+
+        // 添加环境光（始终存在）
+        const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+        this.scene.add(ambient);
+
+        // 设置定向光（光源位置可自定义）
+        this.setupLights();
+    }
+
+    setupLights() {
+        // 移除旧的定向光
+        this.directionalLights.forEach(light => {
+            this.scene.remove(light);
+        });
+        this.directionalLights = [];
+
+        const lightPosAttr = this.getAttribute('light-position');
+        if (lightPosAttr) {
+            // 支持多个光源，使用";"分隔
+            const positions = lightPosAttr.split(';').map(s => s.trim()).filter(s => s);
+            positions.forEach(posStr => {
+                const coords = posStr.split(',').map(Number);
+                if (coords.length >= 3 && coords.every(num => !isNaN(num))) {
+                    const directional = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directional.position.set(coords[0], coords[1], coords[2]);
+                    this.scene.add(directional);
+                    this.directionalLights.push(directional);
+                }
+            });
+        } 
+        // 若未指定光源位置，则使用默认光源
+        if (this.directionalLights.length === 0) {
+            const defaultLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            defaultLight.position.set(5, 5, 5);
+            this.scene.add(defaultLight);
+            this.directionalLights.push(defaultLight);
+        }
+    }
+
+    connectedCallback() {
+        this.updateSize();
+        this.shadowRoot.appendChild(this.renderer.domElement);
+        this.setupEventListeners();
+        this.autoRotate = this.getAttribute('auto-display') === 'true';
+        const speedAttr = this.getAttribute('auto-display-speed');
+        if (speedAttr) {
+            this.autoRotateSpeed = parseFloat(speedAttr);
+        }
+        this.loadModel();
+        this.startRendering();
+    }
+
+    attributeChangedCallback(name) {
+        if (['width', 'height'].includes(name)) {
+            this.updateSize();
+        }
+        if(name === 'auto-display') {
+            this.autoRotate = this.getAttribute('auto-display') === 'true';
+        }
+        if(name === 'auto-display-speed') {
+            const speedAttr = this.getAttribute('auto-display-speed');
+            if (speedAttr) {
+                this.autoRotateSpeed = parseFloat(speedAttr);
+            }
+        }
+        if(name === 'light-position') {
+            this.setupLights();
+        }
+        if(name === 'camera-position') {
+            this.adjustCamera();
+        }
+    }
+
+    updateSize() {
+        const width = parseInt(this.getAttribute('width')) || 800;
+        const height = parseInt(this.getAttribute('height')) || 600;
+        
+        this.style.width = `${width}px`;
+        this.style.height = `${height}px`;
+        
+        this.renderer.setSize(width, height);
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+    }
+
+    async loadModel() {
+        try {
+            this.showLoading();
+            await this.loadModelData();
+            this.processModel();
+        } catch (error) {
+            this.showError(error ? error.toString() : '加载模型时出错');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    async loadModelData() {
+        const src = this.getAttribute('src');
+        if (!src) throw new Error('模型路径未指定');
+
+        if (src.toLowerCase().endsWith('.obj')) {
+            await this.loadOBJWithMTL();
+        }
+    }
+
+    async loadOBJWithMTL() {
+        let [objPath, mtlPath] = this.getModelPaths();
+        let materials;
+        try {
+            // 如果 mtlPath 中已经包含路径，则直接加载
+            if (mtlPath.includes('/')) {
+                materials = await new THREE.MTLLoader().loadAsync(mtlPath);
+            } else {
+                const basePath = this.getBasePath(objPath);
+                materials = await new THREE.MTLLoader().setPath(basePath).loadAsync(mtlPath);
+            }
+            materials.preload();
+        } catch (error) {
+            console.warn('使用默认材质:', error);
+            materials = this.createFallbackMaterial();
+        }
+        this.model = await new THREE.OBJLoader()
+            .setMaterials(materials)
+            .loadAsync(objPath);
+    }
+
+    getModelPaths() {
+        const objSrc = this.getAttribute('src');
+        const mtlSrc = this.getAttribute('mtl') || objSrc.replace(/\.obj$/i, '.mtl');
+        return [objSrc, mtlSrc];
+    }
+
+    getBasePath(filePath) {
+        return filePath.substring(0, filePath.lastIndexOf('/') + 1);
+    }
+
+    createFallbackMaterial() {
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x888888,
+            specular: 0x111111,
+            shininess: 30
+        });
+        // 模拟 MTLLoader 返回的对象
+        return { create: () => material };
+    }
+
+    processModel() {
+        this.scene.add(this.model);
+        this.centerModel();
+        this.adjustCamera();
+    }
+
+    centerModel() {
+        const box = new THREE.Box3().setFromObject(this.model);
+        const center = box.getCenter(new THREE.Vector3());
+        this.model.position.sub(center);
+        
+        const size = box.getSize(new THREE.Vector3());
+        const scale = 5 / Math.max(size.x, size.y, size.z);
+        this.model.scale.set(scale, scale, scale);
+    }
+
+    adjustCamera() {
+        // 默认计算：根据模型包围盒设置相机距离
+        if (!this.model) return;
+        const box = new THREE.Box3().setFromObject(this.model);
+        const size = box.getSize(new THREE.Vector3());
+        let defaultDistance = size.length() * 2;
+        
+        const cameraPosAttr = this.getAttribute('camera-position');
+        if (cameraPosAttr) {
+            const parts = cameraPosAttr.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+            if (parts.length === 1) {
+                this.camera.position.set(0, 0, parts[0]);
+            } else if (parts.length >= 3) {
+                this.camera.position.set(parts[0], parts[1], parts[2]);
+            } else {
+                this.camera.position.set(0, 0, defaultDistance);
+            }
+        } else {
+            this.camera.position.set(0, 0, defaultDistance);
+        }
+        this.camera.lookAt(this.cameraTarget);
+        this.camera.updateProjectionMatrix();
+    }
+
+    setupEventListeners() {
+        // 鼠标拖拽
+        let isDragging = false;
+        let prevX = 0, prevY = 0;
+
+        const onMouseDown = e => {
+            isDragging = true;
+            prevX = e.clientX;
+            prevY = e.clientY;
+            this.pauseAutoRotate();
+        };
+
+        const onMouseMove = e => {
+            if (!isDragging || !this.model) return;
+            
+            const deltaX = e.clientX - prevX;
+            const deltaY = e.clientY - prevY;
+            
+            this.model.rotation.y += deltaX * 0.005;
+            this.model.rotation.x += deltaY * 0.005;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        };
+
+        const onMouseUp = () => {
+            isDragging = false;
+            this.resumeAutoRotateAfterDelay();
+        };
+
+        this.addEventListener('mousedown', onMouseDown);
+        this.addEventListener('mousemove', onMouseMove);
+        this.addEventListener('mouseup', onMouseUp);
+        this.addEventListener('mouseleave', onMouseUp);
+
+        // 滚轮缩放
+        this.addEventListener('wheel', e => {
+            e.preventDefault();
+            this.pauseAutoRotate();
+            const delta = e.deltaY * 0.002;
+            this.camera.translateZ(delta * 15);
+            this.camera.lookAt(this.cameraTarget);
+            this.resumeAutoRotateAfterDelay();
+        }, { passive: false });
+
+        // 保存键盘事件回调引用
+        this._onKeyDown = (e) => {
+            this.keyState[e.key.toLowerCase()] = true;
+            this.pauseAutoRotate();
+        };
+        this._onKeyUp = (e) => {
+            this.keyState[e.key.toLowerCase()] = false;
+            this.resumeAutoRotateAfterDelay();
+        };
+        window.addEventListener('keydown', this._onKeyDown);
+        window.addEventListener('keyup', this._onKeyUp);
+    }
+
+    pauseAutoRotate() {
+        this.userInteracting = true;
+        if (this.resumeAutoRotateTimer) {
+            clearTimeout(this.resumeAutoRotateTimer);
+            this.resumeAutoRotateTimer = null;
+        }
+    }
+
+    resumeAutoRotateAfterDelay() {
+        // 若自动旋转开启，则在1秒无操作后恢复
+        if (!this.autoRotate) return;
+        if (this.resumeAutoRotateTimer) clearTimeout(this.resumeAutoRotateTimer);
+        this.resumeAutoRotateTimer = setTimeout(() => {
+            this.userInteracting = false;
+        }, 1000);
+    }
+
+    handleCameraMovement() {
+        const baseSpeed = 0.15;
+        const speed = this.keyState.shift ? baseSpeed * 2 : baseSpeed;
+
+        // 前后移动
+        if (this.keyState.w || this.keyState.arrowup) {
+            this.camera.translateZ(-speed);
+        }
+        if (this.keyState.s || this.keyState.arrowdown) {
+            this.camera.translateZ(speed);
+        }
+
+        // 左右移动
+        if (this.keyState.a || this.keyState.arrowleft) {
+            this.camera.translateX(-speed);
+        }
+        if (this.keyState.d || this.keyState.arrowright) {
+            this.camera.translateX(speed);
+        }
+
+        // 升降控制
+        if (this.keyState.q) this.camera.position.y += speed;
+        if (this.keyState.e) this.camera.position.y -= speed;
+
+        this.camera.lookAt(this.cameraTarget);
+    }
+
+    startRendering() {
+        const animate = () => {
+            requestAnimationFrame(animate);
+            this.handleCameraMovement();
+            // 自动旋转：只有在开启自动旋转且用户没有交互的情况下才执行
+            if (this.autoRotate && !this.userInteracting && this.model) {
+                this.model.rotation.y += this.autoRotateSpeed;
+            }
+            this.renderer.render(this.scene, this.camera);
+        };
+        animate();
+    }
+
+    showLoading() {
+        this.loadingElement.style.display = 'flex';
+    }
+
+    hideLoading() {
+        this.loadingElement.style.display = 'none';
+    }
+
+    showError(message) {
+        this.loadingElement.innerHTML = `
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff4444" stroke-width="2">
+                <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div style="color:#ff4444; margin-top:12px;">${message}</div>
+        `;
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('keydown', this._onKeyDown);
+        window.removeEventListener('keyup', this._onKeyUp);
+        this.renderer.dispose();
+        
+        if (this.model) {
+            this.model.traverse(child => {
+                if (child.material) child.material.dispose();
+                if (child.geometry) child.geometry.dispose();
+            });
+        }
+    }
+}
+
+customElements.define('three-container', ThreeContainer);
+</script>
+</html>

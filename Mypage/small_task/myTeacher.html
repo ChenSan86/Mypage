@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html class="zyyo.net">
+  <head>
+    <title>文章详情｜辰繖の博客</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="../static/css/rootblur.css" />
+    <link rel="stylesheet" href="../static/css/blog.css" />
+    <link rel="icon" href="../static/img/i6.png" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Snowstorm/20131208/snowstorm-min.js"></script>
+    <style>
+      three-container {
+        display: block;
+        position: relative;
+        border: 1px solid var(--surface-color);
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 20px auto;
+        box-shadow: 0 4px 12px rgba(94, 94, 94, 0.3);
+      }
+
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(81, 81, 81, 0.49);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 100;
+        backdrop-filter: blur(4px);
+      }
+
+      .controls-tip {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(106, 106, 106, 0.329);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="zyyo-filter"></div>
+    <div class="zyyo-main">
+      <div class="zyyo-right blog-detail">
+        <div class="breadcrumb">
+          <a href="./Small_Task.html" class="breadcrumb-item">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path
+                d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
+              />
+            </svg>
+            返回博客列表
+          </a>
+        </div>
+        <article class="article-container">
+          <header class="article-header">
+            <h1 class="article-title gradientText">赵海森</h1>
+            <div class="article-meta">
+              <div class="meta-item">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                  />
+                </svg>
+                <span>辰繖</span>
+              </div>
+              <div class="meta-item">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path
+                    d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                  />
+                </svg>
+                <span>2024.07.15</span>
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <nav class="toc">
+              <h3 class="toc-title">目录导航</h3>
+              <ul class="toc-list">
+                <li><a href="#basic-info">基本信息</a></li>
+                <li><a href="#career">职业生涯</a></li>
+                <li><a href="#achievements">主要成就</a></li>
+              </ul>
+            </nav>
+            <section id="basic-info">
+              <h2>一、基本信息</h2>
+              <div class="info-table">
+                <div class="info-row">
+                  <span class="info-label">中文名</span>
+                  <span class="info-value">赵海森</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">职业</span>
+                  <span class="info-value">山东大学计算机科学学院教授</span>
+                </div>
+              </div>
+            </section>
+            <section id="career">
+              <h2>二、职业生涯</h2>
+              <p>
+                2019-03 — 2021-03华盛顿大学博士后<br />
+                2021-09 — 2022-08奥地利科学技术研究所博士后<br />
+                2014-9 — 2018-12山东大学计算机科学与技术工学博士学位<br />
+                2011-9 — 2014-6山东大学计算机软件与理论工学硕士学位
+              </p>
+            </section>
+
+            <figure class="article-image">
+              <three-container
+                src="./model/zhaohaisen.obj"
+                mtl="./model/zhaohaisen.mtl"
+                width="800"
+                height="600"
+                alt="示例模型"
+                auto-display="false"
+                light-position="5,5,5; -5,3,2"
+                camera-position="10"
+                gesture-control="true"
+              ></three-container>
+              <!--         light-position="0,0,-5;0,0,5" -->
+
+              <script>
+                class ThreeContainer extends HTMLElement {
+                  static get observedAttributes() {
+                    return [
+                      "src",
+                      "mtl",
+                      "width",
+                      "height",
+                      "alt",
+                      "auto-display",
+                      "auto-display-speed",
+                      "light-position",
+                      "camera-position",
+                      "gesture-control",
+                    ];
+                  }
+
+                  constructor() {
+                    super();
+                    this.attachShadow({ mode: "open" });
+                    // 初始化定向光数组
+                    this.directionalLights = [];
+                    this.initElements();
+                    this.initScene();
+                    this.keyState = {};
+                    this.cameraTarget = new THREE.Vector3(0, 0, 0);
+                    // 自动旋转相关变量
+                    this.autoRotate = false;
+                    this.autoRotateSpeed = 0.005;
+                    this.userInteracting = false;
+                    this.resumeAutoRotateTimer = null;
+                    // 手势交互相关变量
+                    this.gestureControlEnabled = false;
+                    this.handposeModel = null;
+                    this.prevFingerPos = null; // 上一帧食指位置
+                    this.gestureThreshold = 40; // 拇指与食指接触阈值（像素）
+                    // 平滑系数与灵敏度调整：平滑系数较大，位移映射系数降低
+                    //
+                    //
+                    //
+                    this.smoothingFactor = 0.1; //核心参数
+                    this.positionMultiplier = 0.005; //核心参数
+                    //
+                    //
+                    //
+                    //
+                  }
+
+                  initElements() {
+                    // 加载遮罩
+                    this.loadingElement = document.createElement("div");
+                    this.loadingElement.className = "loading-overlay";
+                    this.loadingElement.innerHTML = `
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+      </svg>
+      <div style="margin-top:12px;">加载中...</div>
+    `;
+                    this.shadowRoot.appendChild(this.loadingElement);
+
+                    if (this.getAttribute("gesture-control") === "true") {
+                      this.gestureControlEnabled = true;
+                      const gestureContainer = document.createElement("div");
+                      gestureContainer.className = "gesture-container";
+                      gestureContainer.innerHTML = `<video autoplay id="gestureVideo" width="60" height="40" style="transform: scaleX(-1);"></video>`;
+                      this.shadowRoot.appendChild(gestureContainer);
+                    }
+                  }
+
+                  initScene() {
+                    this.scene = new THREE.Scene();
+                    this.renderer = new THREE.WebGLRenderer({
+                      antialias: true,
+                      powerPreference: "high-performance",
+                    });
+                    this.renderer.setClearColor(0x000000);
+
+                    // 初始化相机
+                    this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+                    // 初始位置将在 adjustCamera 中设置
+
+                    // 添加环境光（始终存在）
+                    const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+                    this.scene.add(ambient);
+
+                    // 设置定向光（光源位置可自定义）
+                    this.setupLights();
+                  }
+
+                  setupLights() {
+                    this.directionalLights.forEach((light) =>
+                      this.scene.remove(light)
+                    );
+                    this.directionalLights = [];
+                    const lightPosAttr = this.getAttribute("light-position");
+                    if (lightPosAttr) {
+                      const positions = lightPosAttr
+                        .split(";")
+                        .map((s) => s.trim())
+                        .filter((s) => s);
+                      positions.forEach((posStr) => {
+                        const coords = posStr.split(",").map(Number);
+                        if (
+                          coords.length >= 3 &&
+                          coords.every((num) => !isNaN(num))
+                        ) {
+                          const directional = new THREE.DirectionalLight(
+                            0xffffff,
+                            0.8
+                          );
+                          directional.position.set(
+                            coords[0],
+                            coords[1],
+                            coords[2]
+                          );
+                          this.scene.add(directional);
+                          this.directionalLights.push(directional);
+                        }
+                      });
+                    }
+                    if (this.directionalLights.length === 0) {
+                      const defaultLight = new THREE.DirectionalLight(
+                        0xffffff,
+                        0.8
+                      );
+                      defaultLight.position.set(5, 5, 5);
+                      this.scene.add(defaultLight);
+                      this.directionalLights.push(defaultLight);
+                    }
+                  }
+
+                  connectedCallback() {
+                    this.updateSize();
+                    this.shadowRoot.appendChild(this.renderer.domElement);
+                    this.setupEventListeners();
+                    this.autoRotate =
+                      this.getAttribute("auto-display") === "true";
+                    const speedAttr = this.getAttribute("auto-display-speed");
+                    if (speedAttr) this.autoRotateSpeed = parseFloat(speedAttr);
+                    this.loadModel();
+                    this.startRendering();
+                    if (this.gestureControlEnabled) this.initGestureControl();
+                  }
+
+                  attributeChangedCallback(name) {
+                    if (["width", "height"].includes(name)) this.updateSize();
+                    if (name === "auto-display")
+                      this.autoRotate =
+                        this.getAttribute("auto-display") === "true";
+                    if (name === "auto-display-speed") {
+                      const speedAttr = this.getAttribute("auto-display-speed");
+                      if (speedAttr)
+                        this.autoRotateSpeed = parseFloat(speedAttr);
+                    }
+                    if (name === "light-position") this.setupLights();
+                    if (name === "camera-position") this.adjustCamera();
+                    if (name === "gesture-control") {
+                      this.gestureControlEnabled =
+                        this.getAttribute("gesture-control") === "true";
+                      if (this.gestureControlEnabled && !this.handposeModel)
+                        this.initGestureControl();
+                    }
+                  }
+
+                  updateSize() {
+                    const width = parseInt(this.getAttribute("width")) || 800;
+                    const height = parseInt(this.getAttribute("height")) || 600;
+                    this.style.width = `${width}px`;
+                    this.style.height = `${height}px`;
+                    this.renderer.setSize(width, height);
+                    this.camera.aspect = width / height;
+                    this.camera.updateProjectionMatrix();
+                  }
+
+                  async loadModel() {
+                    try {
+                      this.showLoading();
+                      await this.loadModelData();
+                      this.processModel();
+                    } catch (error) {
+                      this.showError(
+                        error ? error.toString() : "加载模型时出错"
+                      );
+                    } finally {
+                      this.hideLoading();
+                    }
+                  }
+
+                  async loadModelData() {
+                    const src = this.getAttribute("src");
+                    if (!src) throw new Error("模型路径未指定");
+                    if (src.toLowerCase().endsWith(".obj"))
+                      await this.loadOBJWithMTL();
+                  }
+
+                  async loadOBJWithMTL() {
+                    let [objPath, mtlPath] = this.getModelPaths();
+                    let materials;
+                    try {
+                      if (mtlPath.includes("/")) {
+                        materials = await new THREE.MTLLoader().loadAsync(
+                          mtlPath
+                        );
+                      } else {
+                        const basePath = this.getBasePath(objPath);
+                        materials = await new THREE.MTLLoader()
+                          .setPath(basePath)
+                          .loadAsync(mtlPath);
+                      }
+                      materials.preload();
+                    } catch (error) {
+                      console.warn("使用默认材质:", error);
+                      materials = this.createFallbackMaterial();
+                    }
+                    this.model = await new THREE.OBJLoader()
+                      .setMaterials(materials)
+                      .loadAsync(objPath);
+                  }
+
+                  getModelPaths() {
+                    const objSrc = this.getAttribute("src");
+                    const mtlSrc =
+                      this.getAttribute("mtl") ||
+                      objSrc.replace(/\.obj$/i, ".mtl");
+                    return [objSrc, mtlSrc];
+                  }
+
+                  getBasePath(filePath) {
+                    return filePath.substring(0, filePath.lastIndexOf("/") + 1);
+                  }
+
+                  createFallbackMaterial() {
+                    const material = new THREE.MeshPhongMaterial({
+                      color: 0x888888,
+                      specular: 0x111111,
+                      shininess: 30,
+                    });
+                    return { create: () => material };
+                  }
+
+                  processModel() {
+                    this.scene.add(this.model);
+                    this.centerModel();
+                    this.adjustCamera();
+                  }
+
+                  centerModel() {
+                    const box = new THREE.Box3().setFromObject(this.model);
+                    const center = box.getCenter(new THREE.Vector3());
+                    this.model.position.sub(center);
+                    const size = box.getSize(new THREE.Vector3());
+                    const scale = 5 / Math.max(size.x, size.y, size.z);
+                    this.model.scale.set(scale, scale, scale);
+                  }
+
+                  adjustCamera() {
+                    if (!this.model) return;
+                    const box = new THREE.Box3().setFromObject(this.model);
+                    const size = box.getSize(new THREE.Vector3());
+                    let defaultDistance = size.length() * 2;
+                    const cameraPosAttr = this.getAttribute("camera-position");
+                    if (cameraPosAttr) {
+                      const parts = cameraPosAttr
+                        .split(",")
+                        .map((s) => parseFloat(s.trim()))
+                        .filter((n) => !isNaN(n));
+                      if (parts.length === 1) {
+                        this.camera.position.set(0, 0, parts[0]);
+                      } else if (parts.length >= 3) {
+                        this.camera.position.set(parts[0], parts[1], parts[2]);
+                      } else {
+                        this.camera.position.set(0, 0, defaultDistance);
+                      }
+                    } else {
+                      this.camera.position.set(0, 0, defaultDistance);
+                    }
+                    this.camera.lookAt(this.cameraTarget);
+                    this.camera.updateProjectionMatrix();
+                  }
+
+                  setupEventListeners() {
+                    let isDragging = false,
+                      prevX = 0,
+                      prevY = 0;
+                    const onMouseDown = (e) => {
+                      isDragging = true;
+                      prevX = e.clientX;
+                      prevY = e.clientY;
+                      this.pauseAutoRotate();
+                    };
+                    const onMouseMove = (e) => {
+                      if (!isDragging || !this.model) return;
+                      const deltaX = e.clientX - prevX,
+                        deltaY = e.clientY - prevY;
+                      this.model.rotation.y += deltaX * 0.005;
+                      this.model.rotation.x += deltaY * 0.005;
+                      prevX = e.clientX;
+                      prevY = e.clientY;
+                    };
+                    const onMouseUp = () => {
+                      isDragging = false;
+                      this.resumeAutoRotateAfterDelay();
+                    };
+                    this.addEventListener("mousedown", onMouseDown);
+                    this.addEventListener("mousemove", onMouseMove);
+                    this.addEventListener("mouseup", onMouseUp);
+                    this.addEventListener("mouseleave", onMouseUp);
+                    this.addEventListener(
+                      "wheel",
+                      (e) => {
+                        e.preventDefault();
+                        this.pauseAutoRotate();
+                        const delta = e.deltaY * 0.002;
+                        this.camera.translateZ(delta * 15);
+                        this.camera.lookAt(this.cameraTarget);
+                        this.resumeAutoRotateAfterDelay();
+                      },
+                      { passive: false }
+                    );
+                    this._onKeyDown = (e) => {
+                      this.keyState[e.key.toLowerCase()] = true;
+                      this.pauseAutoRotate();
+                    };
+                    this._onKeyUp = (e) => {
+                      this.keyState[e.key.toLowerCase()] = false;
+                      this.resumeAutoRotateAfterDelay();
+                    };
+                    window.addEventListener("keydown", this._onKeyDown);
+                    window.addEventListener("keyup", this._onKeyUp);
+                  }
+
+                  pauseAutoRotate() {
+                    this.userInteracting = true;
+                    if (this.resumeAutoRotateTimer) {
+                      clearTimeout(this.resumeAutoRotateTimer);
+                      this.resumeAutoRotateTimer = null;
+                    }
+                  }
+
+                  resumeAutoRotateAfterDelay() {
+                    if (!this.autoRotate) return;
+                    if (this.resumeAutoRotateTimer)
+                      clearTimeout(this.resumeAutoRotateTimer);
+                    this.resumeAutoRotateTimer = setTimeout(() => {
+                      this.userInteracting = false;
+                    }, 1000);
+                  }
+
+                  handleCameraMovement() {
+                    const baseSpeed = 0.15,
+                      speed = this.keyState.shift ? baseSpeed * 2 : baseSpeed;
+                    if (this.keyState.w || this.keyState.arrowup)
+                      this.camera.translateZ(-speed);
+                    if (this.keyState.s || this.keyState.arrowdown)
+                      this.camera.translateZ(speed);
+                    if (this.keyState.a || this.keyState.arrowleft)
+                      this.camera.translateX(-speed);
+                    if (this.keyState.d || this.keyState.arrowright)
+                      this.camera.translateX(speed);
+                    if (this.keyState.q) this.camera.position.y += speed;
+                    if (this.keyState.e) this.camera.position.y -= speed;
+                    this.camera.lookAt(this.cameraTarget);
+                  }
+
+                  startRendering() {
+                    const animate = () => {
+                      requestAnimationFrame(animate);
+                      this.handleCameraMovement();
+                      if (
+                        this.autoRotate &&
+                        !this.userInteracting &&
+                        this.model
+                      ) {
+                        this.model.rotation.y += this.autoRotateSpeed;
+                      }
+                      this.renderer.render(this.scene, this.camera);
+                    };
+                    animate();
+                  }
+
+                  async initGestureControl() {
+                    try {
+                      const videoElem =
+                        this.shadowRoot.getElementById("gestureVideo");
+                      if (!videoElem) return;
+                      const stream = await navigator.mediaDevices.getUserMedia({
+                        video: true,
+                      });
+                      videoElem.srcObject = stream;
+                      await new Promise(
+                        (resolve) =>
+                          (videoElem.onloadedmetadata = () =>
+                            resolve(videoElem))
+                      );
+                      this.handposeModel = await handpose.load();
+                      console.log("手势模型加载完成");
+                      this.detectHands();
+                    } catch (err) {
+                      console.error("手势控制初始化失败:", err);
+                    }
+                  }
+
+                  // 手势检测：检测拇指与食指接触时，模拟鼠标长按拖拽模型（平移 x 和 y）
+                  async detectHands() {
+                    if (!this.handposeModel) return;
+                    const videoElem =
+                      this.shadowRoot.getElementById("gestureVideo");
+                    if (!videoElem) return;
+                    const predictions = await this.handposeModel.estimateHands(
+                      videoElem
+                    );
+                    if (predictions.length > 0) {
+                      const landmarks = predictions[0].landmarks;
+                      const thumbTip = landmarks[4],
+                        indexTip = landmarks[8];
+                      // 判断是否接触
+                      if (
+                        Math.hypot(
+                          thumbTip[0] - indexTip[0],
+                          thumbTip[1] - indexTip[1]
+                        ) < this.gestureThreshold
+                      ) {
+                        // 将食指坐标镜像转换（仅 x 坐标翻转）并映射到窗口坐标
+                        const mapped = { x: 640 - indexTip[0], y: indexTip[1] };
+                        const winPos = {
+                          x: (mapped.x / 640) * window.innerWidth,
+                          y: (mapped.y / 480) * window.innerHeight,
+                        };
+                        // 平滑处理：更新记录，降低灵敏度
+                        if (this.prevFingerPos) {
+                          const deltaX =
+                            (winPos.x - this.prevFingerPos.x) *
+                            this.positionMultiplier;
+                          const deltaY =
+                            (winPos.y - this.prevFingerPos.y) *
+                            this.positionMultiplier;
+                          this.model.rotation.x += deltaY * 0.2; //核心参数
+                          this.model.rotation.y += deltaX * 0.3; //核心参数
+                        }
+                        // 更新平滑记录（采用较大平滑系数，保证缓慢跟随）
+                        if (!this.prevFingerPos) {
+                          this.prevFingerPos = winPos;
+                        } else {
+                          this.prevFingerPos.x =
+                            this.prevFingerPos.x +
+                            this.smoothingFactor *
+                              (winPos.x - this.prevFingerPos.x);
+                          this.prevFingerPos.y =
+                            this.prevFingerPos.y +
+                            this.smoothingFactor *
+                              (winPos.y - this.prevFingerPos.y);
+                        }
+                      } else {
+                        this.prevFingerPos = null;
+                      }
+                    } else {
+                      this.prevFingerPos = null;
+                    }
+                    requestAnimationFrame(() => this.detectHands());
+                  }
+
+                  showLoading() {
+                    this.loadingElement.style.display = "flex";
+                  }
+
+                  hideLoading() {
+                    this.loadingElement.style.display = "none";
+                  }
+
+                  showError(message) {
+                    this.loadingElement.innerHTML = `
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff4444" stroke-width="2">
+        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div style="color:#ff4444; margin-top:12px;">${message}</div>
+    `;
+                  }
+
+                  disconnectedCallback() {
+                    window.removeEventListener("keydown", this._onKeyDown);
+                    window.removeEventListener("keyup", this._onKeyUp);
+                    this.renderer.dispose();
+                    if (this.model) {
+                      this.model.traverse((child) => {
+                        if (child.material) child.material.dispose();
+                        if (child.geometry) child.geometry.dispose();
+                      });
+                    }
+                  }
+                }
+
+                customElements.define("three-container", ThreeContainer);
+              </script>
+            </figure>
+            <section id="achievements">
+              <h2>三.主要成就</h2>
+              <div class="info-table">
+                <p>
+                  2020-11-20 山东省自然科学奖一等奖；<br />
+                  2019-12-01 中国计算机学会优秀博士学位论文奖；<br />
+                  2016-11-17 国家奖学金；<br />
+                  2016-10-12 山东大学校长奖学金；<br />
+                  2012-08-15 CAD&CG 2012优秀学生论文；
+                </p>
+              </div>
+            </section>
+            <section id="achievements">
+              <h2>四.向我提问</h2>
+              <div class="info-table">
+                <ai-chat
+      backend-url="http://localhost:3000"
+      initial-prompt='[{"role":"system","content":"你将扮演山东大学计算机学院的教授赵海森，你擅长的领域是计算机图形学，下面是他的简介：赵海森，国家海外高层次青年人才，山东大学计算机学院教授，博士生导师。主要研究方向为计算机图形学、数字几何设计，面向新一代智能制造需求的基础理论与方法开展研究。2018年12月获得山东大学工学博士学位，导师为陈宝权教授。2019年至2022年分别在美国华盛顿大学和奥地利科学技术研究所从事博士后研究，导师为Adriana Schulz 教授和Bernd Bickel教授。曾在ACM TOG、ACM SIGGRAPH/Asia、IEEE TVCG、IROS等顶级期刊或会议上发表论文十余篇，申请十余项国家发明专利和一项美国发明专利，出版专著1部。获优秀青年科学基金项目（海外）支持，山东省自然科学奖一等奖、“CCF优秀博士学位论文奖”和“CAD&CG 2012优秀学生论文”等荣誉。现招收本科研助（可远程），23年秋季入学的博士和硕士研究生。"}]'
+      history-length="5"
+      persist-chat="true"
+      show-timestamp="true"
+      greeting = "你好。"
+      theme="dark"
+    >
+
+    </ai-chat>
+    <script>
+      class KimiChat extends HTMLElement {
+        constructor() {
+          super();
+          this.currentKey = null;
+          this.backendUrl =
+            this.getAttribute("backend-url") || "http://localhost:3000";
+          this.messageHistory = [];
+          this.historyLength =
+            parseInt(this.getAttribute("history-length")) || 100;
+          this.persistChat = this.getAttribute("persist-chat") === "true";
+          this.greeting = this.getAttribute("greeting");
+          this.showTimestamp = this.getAttribute("show-timestamp") === "true";
+          this.initialized = false;
+          this.initStorageCleanup();
+          window.addEventListener("beforeunload", (e) =>
+            this.handlePageUnload(e)
+          );
+
+            this.backendUrl =
+              this.getAttribute("backend-url") || "http://localhost:3000";
+          
+
+          if (this.persistChat) {
+            const saved = localStorage.getItem("ai-chat-history");
+            if (saved) {
+              this.messageHistory = JSON.parse(saved);
+            }
+          }
+
+          try {
+            const initialPrompt = JSON.parse(
+              this.getAttribute("initial-prompt")
+            );
+            this.messageHistory.push(
+              ...initialPrompt.filter((m) => m.role === "system")
+            );
+          } catch (error) {
+            console.error("初始化提示解析失败:", error);
+          }
+
+          this.attachShadow({ mode: "open" });
+          this.initComponent();
+        }
+
+        static get observedAttributes() {
+          return [
+            "backend-url",
+            "initial-prompt",
+            "history-length",
+            "persist-chat",
+            "greeting",
+            "show-timestamp",
+            "theme",
+          ];
+        }
+        
+
+        attributeChangedCallback(name, oldVal, newVal) {
+          switch (name) {
+            case "initial-prompt":
+
+              break;
+            case "history-length":
+              this.historyLength = Math.max(1, parseInt(newVal) || 10);
+              break;
+            case "persist-chat":
+              if (newVal === "false" && oldVal === "true") {
+                this.cleanStorageIfNeeded();
+              }
+              this.persistChat = newVal === "true";
+              break;
+            case "greeting":
+              this.greeting = newVal;
+              break;
+            case "show-timestamp":
+              this.showTimestamp = newVal === "true";
+              break;
+            case "theme":
+              this.applyTheme();
+              break;
+          }
+        }
+
+        initComponent() {
+          this.shadowRoot.innerHTML = `
+                <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+        ai-chat {
+            display: block;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-family: 'Inter', system-ui, -apple-system;
+        }
+
+        .chat-container {
+            height: 70vh;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fc;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .message {
+            display: flex;
+            max-width: 85%;
+            margin: 8px 0;
+            animation: messageAppear 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+
+        .message-user {
+            align-self: flex-end;
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            max-width: fit-content;
+        }
+
+        .user-bubble {
+            background: #3b82f6;
+            color: white;
+            border-radius: 18px 4px 4px 18px;
+        }
+
+        .bot-bubble {
+            background: white;
+            color: #1f2937;
+            border-radius: 4px 18px 18px 4px;
+        }
+
+        .typing-indicator {
+            display: inline-flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            animation: dotPulse 1.2s infinite ease-in-out;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            border-radius: 0 0 12px 12px;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-right: 1rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        #message-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        #send-btn {
+            padding: 0.75rem 1.5rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #send-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .markdown-content {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .markdown-content h1 {
+            font-size: 1.5em;
+            margin: 0.8em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .markdown-content h2 {
+            font-size: 1.3em;
+            margin: 0.7em 0;
+        }
+
+        .markdown-content h3 {
+            font-size: 1.1em;
+            margin: 0.6em 0;
+        }
+
+        .markdown-content p {
+            margin: 0.8em 0;
+            line-height: 1.7;
+        }
+
+        .markdown-content pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .markdown-content code {
+            background: #f3f4f6;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid #e5e7eb;
+            padding-left: 1rem;
+            margin: 1em 0;
+            color: #64748b;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 8px;
+            bottom: -18px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 2px 8px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .bubble:hover .copy-btn {
+            opacity: 1;
+        }
+    </style>
+                    <div class="chat-container"></div>
+                    <div class="input-area">
+                        <input type="text" id="message-input" placeholder="输入消息...">
+                        <button id="send-btn">发送</button>
+                    </div>
+            `;
+
+          this.chatContainer = this.shadowRoot.querySelector(".chat-container");
+          console.log(this.chatContainer);
+          this.input = this.shadowRoot.querySelector("#message-input");
+          this.sendBtn = this.shadowRoot.querySelector("#send-btn");
+
+          this.sendBtn.addEventListener("click", () => this.handleSend());
+          this.input.addEventListener(
+            "keypress",
+            (e) => e.key === "Enter" && this.handleSend()
+          );
+
+          
+          this.renderMessages();
+          if (!this.initialized && this.greeting) {
+            this.showGreeting();
+            this.initialized = true;
+          }
+          this.applyTheme();
+          this.initialized = true;
+        }
+
+        showGreeting() {
+           console.log("显示欢迎消息：", this.greeting);
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "message";
+
+          const bubble = document.createElement("div");
+          bubble.className = "bubble bot-bubble";
+          bubble.textContent = this.greeting;
+
+          if (this.showTimestamp) {
+            const timestamp = document.createElement("div");
+            timestamp.className = "timestamp";
+            timestamp.textContent = new Date().toLocaleTimeString();
+            bubble.appendChild(timestamp);
+          }
+
+          messageDiv.appendChild(bubble);
+          this.chatContainer.appendChild(messageDiv);
+          console.log("欢迎消息已添加到DOM：", messageDiv)
+          this.scrollToBottom();
+          console.log("滚动到底部后，chatContainer的高度：", this.chatContainer.scrollHeight);
+ 
+        }
+
+        async handleSend() {
+          const userInput = this.input.value.trim();
+          if (!userInput) return;
+
+          this.addMessage(userInput, "user");
+          this.input.value = "";
+          this.sendBtn.disabled = true;
+
+          try {
+            const typingBubble = this.showTypingIndicator();
+            const response = await this.fetchModelResponse(userInput);
+            this.chatContainer.removeChild(typingBubble);
+            await this.streamResponse(response);
+          } catch (error) {
+            this.showError("服务暂时不可用，请稍后再试"+error);
+            
+          } finally {
+            this.sendBtn.disabled = false;
+          }
+        }
+        async handlePageUnload(event) {
+          if (this.currentKey) {
+            try {
+              try {
+                await fetch(`${this.backendUrl}/api-keys/release`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ key: this.currentKey }),
+                  keepalive: true, // 允许在页面卸载后继续发送
+                });
+              } catch (err) {
+                console.error("Key release failed:", err);
+              }
+            } catch (err) {
+              console.error("密钥释放失败:", err);
+            } finally {
+              this.currentKey = null;
+            }
+          }
+        }
+
+        async fetchModelResponse(prompt) {         
+            try {
+
+              if(!this.currentKey){const keyResponse = await fetch(
+                `${this.backendUrl}/api-keys/allocate`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({}), // 如果不需要参数可以传空对象
+                }
+              );
+              if (!keyResponse.ok) throw new Error("Failed to allocate key");
+
+              const { key } = await keyResponse.json();
+              this.currentKey = key;
+
+            }
+
+              const apiResponse = await fetch(
+                "https://api.moonshot.cn/v1/chat/completions",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.currentKey}`,
+                  },
+                  body: JSON.stringify({
+                    model: "moonshot-v1-8k",
+                    messages: this.getTrimmedHistory(),
+                    temperature: 0.3,
+                    max_tokens: 1024,
+                  }),
+                }
+              );
+
+              if (!apiResponse.ok) {
+                throw new Error(apiResponse.statusText);
+              }
+
+              return apiResponse.json();
+            } catch (error) {
+              console.error("API call failed:", error);
+              throw error;
+            }
+          
+        }
+        
+        initStorageCleanup(){
+          window.addEventListener("beforeunload", () =>
+            this.cleanStorageIfNeeded()
+          );
+          this._disconnectObserver = new MutationObserver(() => {
+            if (!document.contains(this)) {
+              this.cleanStorageIfNeeded();
+            }
+          });
+          this._disconnectObserver.observe(document, {
+            childList: true,
+            subtree: true,
+          });
+        }
+        cleanStorageIfNeeded() {
+          if (!this.persistChat) {
+            const keysToClean = ["ai-chat-history", "kimi-chat-state"];
+            keysToClean.forEach((key) => {
+              if (localStorage.getItem(key)) {
+                console.log(`清除 localStorage: ${key}`);
+                localStorage.removeItem(key);
+              }
+            });
+
+            sessionStorage.removeItem("current-api-key");
+          }
+        }
+        getTrimmedHistory() {
+          const maxMessages = this.historyLength * 2;
+          const systemMessages = this.messageHistory.filter(
+            (m) => m.role === "system"
+          );
+          const recentHistory = this.messageHistory
+            .filter((m) => m.role !== "system")
+            .slice(-maxMessages);
+          return [...systemMessages, ...recentHistory];
+        }
+        addMessage(content, role) {
+          const newMessage = {
+            role,
+            content,
+            timestamp: new Date().toISOString(),
+          };
+          this.messageHistory.push(newMessage);
+          this.saveHistory();
+          if (role === "assistant") return;
+          this.renderMessage(content, role);
+        }
+
+        renderMessages() {
+          this.chatContainer.innerHTML = "";
+          const displayMessages = this.messageHistory.filter(
+            (m) => m.role !== "system"
+          );
+          displayMessages.forEach((msg) =>
+            this.renderMessage(msg.content, msg.role)
+          );
+        }
+
+        renderMessage(content, role) {
+          const messageDiv = document.createElement("div");
+          messageDiv.className = `message ${
+            role === "user" ? "message-user" : ""
+          }`;
+
+          const bubble = document.createElement("div");
+          bubble.className = `bubble ${
+            role === "user" ? "user-bubble" : "bot-bubble"
+          }`;
+
+          const contentDiv = document.createElement("div");
+          contentDiv.className = "markdown-content";
+          contentDiv.innerHTML = this.parseMarkdown(content);
+
+          const actionBar = document.createElement("div");
+          actionBar.style.display = "flex";
+          actionBar.style.justifyContent = "space-between";
+          actionBar.style.alignItems = "center";
+          actionBar.style.marginTop = "8px";
+
+          if (role === "bot") {
+            const copyBtn = document.createElement("div");
+            copyBtn.className = "copy-btn";
+            copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+  <path d="M8 4v12h12V4H8zM6 2h16v16H6zM4 6v14h14"/>
+</svg>`;
+            copyBtn.onclick = () => this.copyToClipboard(content);
+            actionBar.appendChild(copyBtn);
+          }
+
+          if (this.showTimestamp) {
+            const timestamp = document.createElement("div");
+            timestamp.className = "timestamp";
+            timestamp.textContent = new Date().toLocaleTimeString("zh-CN", {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            actionBar.appendChild(timestamp);
+          }
+          bubble.appendChild(contentDiv);
+          bubble.appendChild(actionBar);
+          messageDiv.appendChild(bubble);
+
+          this.chatContainer.appendChild(messageDiv);
+          this.scrollToBottom();
+        }
+
+        async streamResponse(responseData) {
+          return new Promise((resolve) => {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message";
+
+            const bubble = document.createElement("div");
+            bubble.className = "bubble bot-bubble";
+
+            // 内容容器
+            const contentDiv = document.createElement("div");
+            contentDiv.className = "markdown-content";
+
+            // 操作栏
+            const actionBar = document.createElement("div");
+            actionBar.style.display = "flex";
+            actionBar.style.justifyContent = "space-between";
+            actionBar.style.alignItems = "center";
+            actionBar.style.marginTop = "8px";
+
+            // 时间戳
+            const timestamp = document.createElement("div");
+            timestamp.className = "timestamp";
+            const copyBtn = document.createElement("div");
+            copyBtn.className = "copy-btn";
+            copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+  <path d="M8 4v12h12V4H8zM6 2h16v16H6zM4 6v14h14"/>
+</svg>`;
+
+            actionBar.appendChild(timestamp);
+            actionBar.appendChild(copyBtn);
+            bubble.appendChild(contentDiv);
+            bubble.appendChild(actionBar);
+            messageDiv.appendChild(bubble);
+            this.chatContainer.appendChild(messageDiv);
+            let text = "";
+
+            text = responseData.choices[0].message.content;
+            
+            let index = 0;
+            const renderChunk = () => {
+              if (index < text.length) {
+                contentDiv.innerHTML = this.parseMarkdown(
+                  text.slice(0, ++index)
+                );
+                timestamp.textContent = new Date().toLocaleTimeString("zh-CN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+                setTimeout(renderChunk, 30);
+                this.scrollToBottom();
+              } else {
+                this.messageHistory.push({
+                  role: "assistant",
+                  content: text,
+                  timestamp: new Date().toISOString(),
+                });
+                this.saveHistory();
+                copyBtn.onclick = () => this.copyToClipboard(text);
+                resolve();
+              }
+            };
+
+            renderChunk();
+          });
+        }
+
+        parseMarkdown(text) {
+          return text
+            .replace(/^### (.*)/gm, "<h3>$1</h3>")
+            .replace(/^## (.*)/gm, "<h2>$1</h2>")
+            .replace(/^# (.*)/gm, "<h1>$1</h1>")
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\*(.*?)\*/g, "<em>$1</em>")
+            .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+            .replace(/`(.*?)`/g, "<code>$1</code>")
+            .replace(/^> (.*)/gm, "<blockquote>$1</blockquote>")
+            .replace(/\n/g, "<br>");
+        }
+
+        showTypingIndicator() {
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "message";
+
+          const bubble = document.createElement("div");
+          bubble.className = "typing-indicator";
+          bubble.innerHTML = `
+                <div class="typing-dot" style="animation-delay: 0s"></div>
+                <div class="typing-dot" style="animation-delay: 0.2s"></div>
+                <div class="typing-dot" style="animation-delay: 0.4s"></div>
+            `;
+
+          messageDiv.appendChild(bubble);
+          this.chatContainer.appendChild(messageDiv);
+          this.scrollToBottom();
+          return messageDiv;
+        }
+
+        showError(message) {
+          const errorDiv = document.createElement("div");
+          errorDiv.className = "message";
+
+          const bubble = document.createElement("div");
+          bubble.className = "bubble bot-bubble";
+          bubble.textContent = message;
+
+          errorDiv.appendChild(bubble);
+          this.chatContainer.appendChild(errorDiv);
+          this.scrollToBottom();
+        }
+
+        scrollToBottom() {
+          requestAnimationFrame(() => {
+            this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+          });
+        }
+
+        saveHistory() {
+          if (this.persistChat) {
+            localStorage.setItem(
+              "ai-chat-history",
+              JSON.stringify(this.messageHistory)
+            );
+          } else {
+            localStorage.removeItem("ai-chat-history");
+          }
+        }
+
+        copyToClipboard(text) {
+          navigator.clipboard.writeText(text).then(() => {
+            this.showToast("已复制到剪贴板");
+          });
+        }
+
+        showToast(message) {
+          const toast = document.createElement("div");
+          toast.style.position = "fixed";
+          toast.style.bottom = "20px";
+          toast.style.left = "50%";
+          toast.style.transform = "translateX(-50%)";
+          toast.style.background = "rgba(0,0,0,0.8)";
+          toast.style.color = "white";
+          toast.style.padding = "8px 16px";
+          toast.style.borderRadius = "8px";
+          toast.style.zIndex = "1000";
+          toast.textContent = message;
+          this.shadowRoot.appendChild(toast);
+          setTimeout(() => toast.remove(), 2000);
+        }
+
+        applyTheme() {
+          const theme = this.getAttribute("theme") || "light";
+          const container = this.shadowRoot.querySelector(".chat-container");
+          container.style.background = theme === "dark" ? "#2d3748" : "#f8f9fc";
+        }
+        disconnectedCallback() {
+          this.releaseKeyOnUnload();
+        }
+
+        async releaseKeyOnUnload() {
+          if (this.currentKey) {
+            try {
+              await fetch(`${this.backendUrl}/release`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ key: this.currentKey }),
+                keepalive: true,
+              });
+              console.log(`组件卸载时释放密钥: ${this.currentKey}`);
+            } catch (err) {
+              console.error("组件卸载释放失败:", err);
+            }
+            this.currentKey = null;
+          }
+        }
+        disconnectedCallback() {
+
+          this.cleanStorageIfNeeded();
+          this.releaseKeyOnUnload();
+        }
+      }
+      customElements.define("ai-chat", KimiChat);
+    </script>
+                
+              </div>
+            </section>
+          </div>
+
+          <div class="article-footer">
+            <div class="article-tags">
+              <span class="tag">山东大学</span>
+              <span class="tag">图形学大师</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <script>
+      snowStorm.snowColor = "#FFFFFF";
+      snowStorm.flakesMaxActive = 96;
+      snowStorm.useTwinkleEffect = true;
+      snowStorm.flakeIndex = 1;
+      snowStorm.followMouse = true;
+      snowStorm.snowStick = true;
+    </script>
+
+    <footer>@ChenSan｜博学之，审问之，慎思之，明辨之，笃行之</footer>
+    <div class="tc"></div>
+  </body>
+</html>
